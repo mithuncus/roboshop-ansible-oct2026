@@ -25,10 +25,10 @@
       replace: '0.0.0.0'
   
   - name: restart after change
-     anisble.builtin.service:
+    anisble.builtin.service:
       name: mongod
       state: restarted
-      
+
 
 
 
