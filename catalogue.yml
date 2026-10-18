@@ -19,3 +19,14 @@
       path: /app
       state: directory 
 
+  - name: download catalogue application 
+    ansible.builtin.get_url:
+      url: https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip
+      dest: /tmp
+  
+  - name: extract catalogue application 
+    ansible.builtin.unarchive:
+      src: /tmp/catalogue.zip
+      dest: /app
+      
+
