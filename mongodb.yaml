@@ -1,7 +1,7 @@
-- name: install mongodb
-  hosts: mongodb
-  become: yes
-  tasks:
+  - name: install mongodb
+    hosts: mongodb
+    become: yes
+    tasks:
   - name: copy mongodb repo
     ansible.builtin.copy:  # for copying repo's we use this 
       src: mongodb.repo
