@@ -30,3 +30,27 @@
       dest: /app
       remote_src: yes 
 
+  - name: install dependences (run npm install command so we are using command is fast then shell)
+    ansible.builtin.command: npm install
+      args:
+      chdir: /app
+
+  - name: copy catalogue service
+    ansible.builtin.copy:  # for copying repo's we use this 
+      src: catalogue.service
+      dest: /etc/systemd/system/catalogue.service
+
+  - name: deamon reload 
+    ansible.builtin.systemd_service:
+      deamon_reload: true 
+  
+  - name: copy mongodb repo
+    ansible.builtin.copy:  # for copying repo's we use this 
+      src: mongodb.repo
+      dest: /etc/yum.repos.d/mongo.repo
+  
+  - name: install mongodb client 
+    ansible.builtin.package: # for installing ansible packages
+      name: mongodb-mongosh
+      state: present
+
