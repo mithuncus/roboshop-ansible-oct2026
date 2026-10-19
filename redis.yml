@@ -1,0 +1,24 @@
+- name: redis
+  hosts: redis
+  become: yes
+  tasks: 
+    - name: dnf module instal for redis 
+      ansible.builtin.shell: dnf module disable redis -y ; dnf module enable redis:7 -y
+
+    - name: install redis 
+      ansible.builtin.dnf:
+        name: redis
+        state: present
+
+    - name: replacing loacl host to internet
+      ansible.builtin.replace:
+        path: /etc/redis/redis.conf
+        regexp: '127.0.0.1'
+        replace: '0.0.0.0'  
+
+    - name: enable and start  user service
+      ansible.builtin.service: 
+        name: user.service
+        state: started
+        enabled: yes
+        
