@@ -1,0 +1,20 @@
+- name: rabbitMQ 
+  hosts: rabbitMQ
+  become: yes
+  tasks: 
+    - name: copying RabbitMQ repo
+      ansible.builtin.copy:
+        src: rabbitmq.repo
+        dest: /etc/yum.repos.d/rabbitmq.repo
+
+    - name: installing Erlang and RabbitMQ
+      ansible.builtin.dnf: 
+        name: erlang rabbitmq-server
+        state: latest
+    - name: start and enable rabbitmq service
+      ansible.builtin.service:
+        name: rabbitmq-server
+        state: started
+        enabled: true
+    
+    - name: #####Need to continue####
